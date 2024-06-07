@@ -1,0 +1,21 @@
+Nombre token, Descripción, patrón (ER)
+-------------------------------------------
+Palabra reservada: serie de letras => [a-z]+
+Asignacion: un signo menos y un signo mayor qué =>   "-"">"
+String: cadena de caracteres encerrada por comillas simples => ' [^\n]* '
+Punto y coma: signo punto y coma => ";"
+Corchete apertura: corchete que abre => "["
+Corchete cierre: corchete que cierra => "]"
+Dos puntos: signo dos puntos => ":"
+Coma: signo de coma => ","
+Llave de apertura: signo de llave que abre => "{"
+Llave de cierre: signo de llave que cierra => "}"
+Mayor qué: signo mayor qué => ">"
+
+
+palabrasReservadas = ["nombre", "nodos", "conexiones"]
+
+if palabra_entrada in palabrasReservadas:
+    bien
+else:
+    marcar error, palabra_entrada no es una palabra reservada válida
