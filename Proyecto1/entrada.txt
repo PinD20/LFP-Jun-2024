@@ -1,0 +1,15 @@
+nombre 
+
+
+-> 
+
+
+'titulo';
+nodos -> [
+    'nombre1': 'texto para mi nodo número 1',
+    'nombre2': 'texto'
+];
+conexiones -> [
+    {'nombre1' > 'nombre2'},
+    {'nombre2' > 'nombre1'}
+]
