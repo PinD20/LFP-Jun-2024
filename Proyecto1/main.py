@@ -12,3 +12,7 @@ if __name__ == "__main__":
     print("=================== TOKENS ===================")
     for token in lexer.tokens:
         print(token)
+
+    print("================== ERRORES ===================")
+    for error in lexer.errores:
+        print(error)

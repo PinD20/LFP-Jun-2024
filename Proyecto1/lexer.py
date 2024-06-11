@@ -1,9 +1,11 @@
 from token import Token
+from error import Error
 
 class Lexer():
     def __init__(self, entrada) -> None:
         self.entrada = entrada
         self.tokens = []
+        self.errores = []
 
     def isCaracterValido(self, caracter):
         return caracter in [';', '[', ']', ':', ',', '{', '}', '>']
@@ -21,7 +23,7 @@ class Lexer():
             if ord(caracter) == 32 or ord(caracter) == 10 or ord(caracter) == 9:
                 pass
             else:
-                print(f'ERROR LÉXICO: {caracter} ({linea}, {columna})')
+                self.errores.append(Error("N/A", "N/A", linea, columna, caracter))
             return 0
 
     def analizar(self):
@@ -49,7 +51,7 @@ class Lexer():
                         #Es un estado de aceptación, se guarda el token
                         self.tokens.append(Token("Palabra reservada", lexema, linea, columna - len(lexema)))
                     else:
-                        print("ERROR LÉXICO: " + lexema + " (" + str(linea) + ", " + str(columna - len(lexema)) + ")")
+                        self.errores.append(Error("Palabra Reservada", lexema, linea, columna, "N/A"))
 
                     lexema = ""
 
@@ -64,7 +66,7 @@ class Lexer():
                     estado = 20
                     estado_anterior = 2
                 else:
-                    print(f'ERROR LÉXICO: {caracter} ({linea}, {columna})')
+                    self.errores.append(Error("Asignación", lexema, linea, columna, caracter))
                     estado = 0
                     lexema = ""
 
@@ -74,7 +76,7 @@ class Lexer():
                     estado = 20
                     estado_anterior = 3
                 elif caracter == "\n":
-                    print(f'ERROR LÉXICO: {caracter} ({linea}, {columna})')
+                    self.errores.append(Error("String", lexema, linea, columna, caracter))
                     estado = 0
                     lexema = ""
                 else:
