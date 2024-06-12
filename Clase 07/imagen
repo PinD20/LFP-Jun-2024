@@ -1,0 +1,14 @@
+
+digraph Hola {
+    node[style="filled", fillcolor="blue"]
+    
+    label="Hola soy un grafo"
+    
+    
+    nodo[label="Inicio", fontcolor="red"]
+    nodo2[label="Fin", fillcolor="#57D959"]
+    nodo3[label="Intermedio"]
+    
+    nodo2 -> nodo
+    nodo2 -> nodo3
+}
