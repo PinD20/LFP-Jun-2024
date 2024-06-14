@@ -1,0 +1,51 @@
+=============================== Lenguaje ===============================
+
+{
+    ID: 1;
+    ER: "abc"*(8|20)?1;
+    CADENAS: "abc201", "81";
+},
+{
+    ID: 2;
+    ER: "cda"*(1|10)?1;
+    CADENAS: "abc201", "1";
+} 
+
+
+================================== GLC =================================
+Terminales: tk_id, tk_er, tk_cadenas, tk_entero, tk_decimal, tk_string,
+            tk_PyC, tk_asterisco, tk_mas, tk_or, tk_coma,
+            tk_llaveAbre, tk_llaveCierra, tk_dosPuntos
+
+No terminales: <inicio>, <elemento>, <instruccionID>, <expresion>,
+               <elementoER>, <operador>, <operadorUnario>, <otraExpresion>,
+               <instruccionCADENAS>, <otroString>
+
+Inicio: <inicio>
+
+Producciones:
+<inicio> ::= <elemento> <otroElemento>
+
+<elemento> ::= tk_llaveAbre <instruccionID> <instruccionER> <instruccionCADENAS> tk_llaveCierra
+
+<instruccionID> ::= tk_id tk_dosPuntos tk_entero tk_PyC
+
+
+<instruccionER> ::= tk_ER tk_dosPuntos <expresion> <otraExpresion> tk_PyC
+<expresion> ::= tk_parentesisAbre <expresion> tk_parentesisCierra <operador>
+              | <elementoER> <operador>
+<elementoER> ::= tk_string
+               | tk_entero
+               | tk_decimal
+<operador> ::= <operadorUnario>
+            | tk_or <expresion>
+            | epsilon
+<operadorUnario> ::= tk_mas
+                   | tk_asterisco
+                   | tk_interrogacion
+<otraExpresion> ::= <expresion> <otraExpresion>
+                  | epsilon
+
+<instruccionCADENAS> ::= tk_cadenas tk_dosPuntos tk_string <otroString> tk_PyC
+<otroString> ::= tk_coma tk_string <otroString>
+               | epsilon

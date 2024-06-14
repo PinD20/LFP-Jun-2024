@@ -1,0 +1,48 @@
+======================= Lenguaje =======================
+
+    Claves = [
+        "producto", "precio", "cantidad"
+    ]
+
+    Registros = [
+        { "manzana", 2.5, 15 }
+        { "melon", 5, 10 }
+    ]
+
+    imprimir("hola");
+    conteo();
+
+
+========================== GLC =========================
+
+Terminales: tk_claves, tk_registros, tk_igual, tk_corcheteAbre, tk_corcheteCierra,
+            tk_cadena, tk_llaveAbre, tk_llaveCierra, tk_entero, tk_decimal,
+            tk_palabraReservada, tk_parentesisAbre, tk_parentesisCierra, tk_PyC
+
+
+No Terminales: <inicio>, <claves>, <cadenas>, <registros>, <registro>
+               <valor>, <otroValor>, <otroRegistro>, <funciones>, <parametros>
+
+Inicio: <inicio>
+
+Producciones:
+
+<inicio> ::= <claves> <registros> <funciones>
+
+<claves> ::= tk_claves tk_igual tk_corcheteAbre tk_cadena <cadenas> tk_corcheteCierra
+<cadenas> ::= tk_coma tk_cadena <cadenas>
+            | epsilon //cadena vacía
+
+<registros> ::= tk_registros tk_igual tk_corcheteAbre <registro> <otroRegistro> tk_corcheteCierra
+<registro> ::= tk_llaveAbre <valor> <otroValor> tk_llaveCierra
+<otroRegistro> ::= <registro> <otroRegistro>
+                 | epsilon
+<valor> ::= tk_cadena
+          | tk_decimal
+          | tk_entero
+<otroValor> ::= tk_coma <valor> <otroValor>
+              | epsilon
+
+<funciones> ::= tk_palabraReservada parentesisAbre <parametros> parentesisCierra tk_PyC
+<parametros> ::= <valor> <otroValor>
+               | epsilon
