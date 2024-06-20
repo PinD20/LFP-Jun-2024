@@ -1,0 +1,40 @@
+========================= LENGUAJE =========================
+
+Array variable = new Array [15, 564, 78];
+
+variable.sort(asc=FALSE);
+
+variable.save("amsdlkadsa");
+
+
+======================== GRAMÁTICA =========================
+Terminales: tk_palabraArray, ...
+
+No Terminales: <inicio>, <instrucciones>, ...
+
+Inicio: <inicio>
+
+Producciones:
+
+    <inicio> ::= <instrucciones>
+    <instrucciones> ::= <instruccion> <instrucciones>
+                      | epsilon
+    <instruccion> ::= <declaracion>
+                    | <instruccionID>
+    <instruccionID> ::= tk_id tk_punto <accionArreglo>
+    <accionArreglo> ::= ordenamiento>
+                      | <guardar>
+
+    <declaracion> ::= tk_palabraArray tk_id tk_igual tk_palabraNew tk_palabraArray tk_corcheteA <listaElementos> tk_corcheteC tk_PyC
+    <listaElementos> ::= <elemento> <listaElementos>
+                       | epsilon
+    <elemento> ::= tk_entero
+                 | tk_decimal
+    
+    <ordenamiento> ::= tk_palabraSort tk_parentesisAbre tk_palabraAsc tk_igual tk_booleano tk_parentesisCierra tk_PyC
+
+    <guardar> ::= tk_palabraSave tk_parentesisAbre tk_string tk_parentesisCierra tk_PyC
+
+    
+
+
