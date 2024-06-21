@@ -26,8 +26,12 @@ Producciones:
                       | <guardar>
 
     <declaracion> ::= tk_palabraArray tk_id tk_igual tk_palabraNew tk_palabraArray tk_corcheteA <listaElementos> tk_corcheteC tk_PyC
-    <listaElementos> ::= <elemento> <listaElementos>
+    <listaElementos> ::= <elemento> <masElementos>
                        | epsilon
+
+    <masElementos> ::= tk_coma <tk_elemento> <masElementos>
+                     | epsilon
+                     
     <elemento> ::= tk_entero
                  | tk_decimal
     
