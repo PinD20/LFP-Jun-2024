@@ -8,11 +8,21 @@ class Parser():
         self.tokens.append(Token('$', 'EOF', -1, -1))
         # End of File = EOF
 
+
+    def recuperar_modo_panico(self, nombre_token_de_sincronizacion):
+        while self.tokens[0].nombre != "$":
+            token = self.tokens.pop(0)
+            if token.nombre == nombre_token_de_sincronizacion:
+                break
+
     def parse(self):
         self.inicio()
     
     #<inicio> ::= <instrucciones>
     def inicio(self):
+        #crean nodo <inicio>
+        #crean nodo <instrucciones>
+        #nodo <inicio> apunta a nodo <instrucciones>
         self.instrucciones()
 
     #<instrucciones> ::= <instruccion> <instrucciones>
@@ -107,12 +117,16 @@ class Parser():
     #<instruccionID> ::= tk_id tk_punto <accionArreglo>
     def instruccionID(self):
         if self.tokens[0].nombre == "tk_id":
-            self.tokens.pop(0)
+            id = self.tokens.pop(0)
             if self.tokens[0].nombre == "tk_punto":
                 self.tokens.pop(0)
-                self.accionArreglo()
+                resultado = self.accionArreglo()
+                if resultado[0] == "sort":
+                    print("La instrucción es un ordenamiento para el arreglo ", id.lexema,"con asc = ", resultado[1])
             else:
                 print(f"Error sintactico: Se esperaba un . en la linea {self.tokens[0].linea}")
+                #Recuperación de errores en modo pánico
+                self.recuperar_modo_panico("tk_PyC")
         else:
             print(f"Error sintactico: Se esperaba un id en la linea {self.tokens[0].linea}")
     
@@ -120,9 +134,9 @@ class Parser():
     #                  | <guardar>
     def accionArreglo(self):
         if self.tokens[0].nombre == "tk_palabraSort":
-            self.ordenamiento()
+            return ["sort", self.ordenamiento()]
         else:
-            self.guardar()
+            return self.guardar()
 
     #<ordenamiento> ::= tk_palabraSort tk_parentesisAbre tk_palabraAsc tk_igual tk_booleano tk_parentesisCierra tk_PyC
     def ordenamiento(self):
@@ -142,6 +156,7 @@ class Parser():
                                     self.tokens.pop(0)
                                     #Aquí se debe manejar la instruccion
                                     #Ya tenemos el id del arreglo y el valor booleano
+                                    return asc.lexema
                                 else:
                                     print(f"Error sintactico: Se esperaba un ; en la linea {self.tokens[0].linea}, pero se obtuvo {self.tokens[0].lexema}")
                             else:
@@ -157,6 +172,7 @@ class Parser():
                 print(f"Error sintactico: Se esperaba un ( en la linea {self.tokens[0].linea}, pero se obtuvo {self.tokens[0].lexema}")
         else:
             print(f"Error sintactico: Se esperaba SORT en la linea {self.tokens[0].linea}, pero se obtuvo {self.tokens[0].lexema}")
+        self.recuperar_modo_panico("tk_PyC")
 
     #<guardar> ::= tk_palabraSave tk_parentesisAbre tk_string tk_parentesisCierra tk_PyC
     def guardar(self):

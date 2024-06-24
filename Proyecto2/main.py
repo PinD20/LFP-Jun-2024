@@ -20,7 +20,7 @@ def crearTokens():
     tokens.append(Token("tk_corcheteC", "Array", 10, 1))
     tokens.append(Token("tk_PyC", "Array", 11, 1))
 
-    tokens.append(Token("tk_id", "Array", 12, 1))
+    tokens.append(Token("tk_id", "array_1", 12, 1))
     tokens.append(Token("tk_punto", "Array", 13, 1))
     tokens.append(Token("tk_palabraSort", "Array", 14, 1))
     tokens.append(Token("tk_parentesisAbre", "Array", 15, 1))
